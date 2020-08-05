@@ -7,18 +7,20 @@ namespace WebApplication1
 {
     public class Usuario
     {
-        public int id { get; set; }
-        public string nome { get; set; }
-        public string telefone { get; set; }
+        public int Id { get; set; }
+        public string Nome { get; set; }
+        public string Telefone { get; set; }
+        public string Foto { get; set; }
 
         private static List<Usuario> Lista = new List<Usuario>();
 
         public Usuario() { }
-        public Usuario(int Id, string Nome, string Telefone)
+        public Usuario(int id, string nome, string telefone, string sFoto)
         {
-            this.id = id;
-            this.nome = Nome;
-            this.telefone = Telefone;
+            this.Id =id;
+            this.Nome = nome;
+            this.Telefone = telefone;
+            this.Foto = sFoto;
         }
 
         public void Gravar()
@@ -29,6 +31,12 @@ namespace WebApplication1
         public List<Usuario> Listar()
         {
             return Usuario.Lista;
+        }
+
+
+        public void LimparLista()
+        {
+            Lista.Clear();
         }
     }
 }

@@ -58,7 +58,7 @@ namespace WebApplication1
         protected void btnGravar_Click(object sender, EventArgs e)
         {
             List<Usuario> usuario = new List<Usuario>();
-            usuario.Add(new Usuario(Convert.ToInt16(txtId.Text), txtNome.Text, txtTelefone.Text));
+            usuario.Add(new Usuario(Convert.ToInt16(txtId.Text), txtNome.Text, txtTelefone.Text, string.Empty));
             PreencherLista(usuario);
         }
 
