@@ -9,6 +9,9 @@ namespace WebApplication1
 {
     public partial class Cadastro : System.Web.UI.Page
     {
+
+        static Usuario usuario;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             MostrarLista(false);
@@ -27,15 +30,24 @@ namespace WebApplication1
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            List<Usuario> lista = new List<Usuario>();
-            var usuario = new Usuario();
-            usuario.id = Convert.ToInt16(txtId.Text);
-            usuario.nome = txtNome.Text;
-            usuario.telefone = txtTelefone.Text;
-            lista.Add(new Usuario(Convert.ToInt16(txtId.Text), txtNome.Text, txtTelefone.Text));
-            grdResultado.DataSource = lista;
+            string caminhoArquivoFisico = (AppDomain.CurrentDomain.BaseDirectory + System.Configuration.ConfigurationManager.AppSettings["caminhoArquivo"] + @"\" + fileFoto.FileName).Replace(@"\\", @"\");
+            string caminhoArquivoURL = System.Configuration.ConfigurationManager.AppSettings["caminhoArquivo"].Replace(@"\", "/") + "/" + fileFoto.FileName;
+            fileFoto.SaveAs(caminhoArquivoFisico.Replace(@"\\",@"\"));
+            
+            usuario = new Usuario(Convert.ToInt16(txtId.Text), txtNome.Text, txtTelefone.Text, caminhoArquivoURL);
+            usuario.Gravar();
+
+            grdResultado.DataSource = usuario.Listar();
             grdResultado.DataBind();
             MostrarLista(true);
+            txtId.Text = string.Empty;
+            txtNome.Text = string.Empty;
+            txtTelefone.Text = string.Empty;
+        }
+
+        protected void Limpar_Click(object sender, EventArgs e)
+        {
+            usuario.LimparLista();
         }
     }
 }
